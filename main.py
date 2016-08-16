@@ -2,8 +2,7 @@
 
 import webapp2
 #from functions.py import *
-form =  
-'''
+form =  '''
 			<form method="post">
             Enter your birthday <br/>
             <label>
@@ -20,40 +19,42 @@ form =
 			</label>
             	<input type="submit">
 			</form>
-'''
-months =['January','February','March']  
-
+ 		'''
+months =['January','February','March','April','May','June','July','August','September','October','November','December']  
 def valid_day(day):
     if (day and day.isdigit()):
         day = int(day)
-        if day > 0 and day <=31:
-            return day
+    if day > 0 and day <=31:
+        return day
 
 def valid_month(month):
     if month:
         month = month.capitalize()
-        if (month in months):
-            return month
+    if month in months:
+        return month
+
 
 def valid_year(year):
     if (year and year.isdigit()):
         year = int(year)
-        if (year > 1900 and year <=2016):
-            return year
+    if year > 1900 and year <=2016:
+        return year
+
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write(form)
     
-    
 
     def post(self):
         month = valid_month(self.request.get('month'))
-        day = valid_month(self.request.get('day'))
-        year = valid_month(self.request.get('year'))
+        day = valid_day(self.request.get('day'))
+        year = valid_year(self.request.get('year'))
 
         if not(month and year and day):
-            self.response.out.write(form)
+            self.response.out.write(day)
+            self.response.out.write(month)            
+            self.response.out.write(year)
         else:
             self.response.out.write("Thanks for entering the information")    
            
